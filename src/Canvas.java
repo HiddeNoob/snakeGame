@@ -3,22 +3,19 @@ import java.awt.*;
 
 
 
-public class Canvas extends JFrame{
+public class Canvas extends JPanel{
 
-    final private int rows = 50;
-    final private int cols = 50;
-    final private int windowWidth = 800, windowHeight = 800;
 
-    public JPanel[][] canvasMatrix = new JPanel[rows][cols];
+    private final JPanel[][] canvasMatrix;
 
-    Canvas(){
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Snake Game");
-        setSize(windowWidth,windowHeight);
-        setLocationRelativeTo(null);
-        setResizable(false);
+
+
+
+    public Canvas(int rows, int cols){
+
+
+        canvasMatrix = new JPanel[rows][cols];
         setLayout(new GridLayout(rows,cols));
-
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < cols; j++){
                 canvasMatrix[i][j] = new JPanel();
@@ -29,7 +26,7 @@ public class Canvas extends JFrame{
             }
         }
 
-
-        setVisible(true);
     }
+
+
 }
