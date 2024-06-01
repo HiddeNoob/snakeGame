@@ -28,5 +28,11 @@ public class Canvas extends JPanel{
 
     }
 
+    public JPanel getPixel(int row, int col) {
+        return canvasMatrix[row][col];
+    }
 
+    public void setPixelColor(int row, int col,Color c) {
+        canvasMatrix[row][col].setBackground(c);
+    }
 }
