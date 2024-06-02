@@ -1,4 +1,4 @@
-package main.java;
+package main.app;
 
 import main.resources.*;
 import main.resources.Canvas;
