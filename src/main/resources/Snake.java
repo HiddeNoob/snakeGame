@@ -46,6 +46,12 @@ public class Snake {
         return snakeTail;
     }
 
+    public void eatFood(int foodSize){
+        for(int i = 0; i < foodSize; i++){
+            snakeTail.addFirst(new Point(snakeTail.firstElement().x , snakeTail.firstElement().y));
+        }
+    }
+
 
 
 

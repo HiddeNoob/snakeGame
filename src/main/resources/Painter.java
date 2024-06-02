@@ -16,3 +16,5 @@ public class Painter {
         canvas.setPixelColor(food.x, food.y, color);
     }
 }
+
+

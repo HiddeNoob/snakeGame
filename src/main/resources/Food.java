@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Food {
 
-    int x;
-    int y;
-    int delay; // delay for disappear
-    int score; // snake will grow up relatable to this score
+    public int x;
+    public int y;
+    public int delay; // delay for disappear
+    public int score; // snake will grow up relatable to this score
     public Food(int x, int y, int delay, int score) {
         this.delay = delay;
         this.score = score;
