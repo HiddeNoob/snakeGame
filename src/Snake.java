@@ -6,7 +6,6 @@ import java.util.Stack;
 public class Snake {
 
 
-    private final Canvas canvas;
 
     enum Direction{
         LEFT, RIGHT, UP, DOWN
@@ -16,29 +15,10 @@ public class Snake {
     private Stack<Point> snakeTail = new Stack<Point>();
     private Direction direction = Direction.RIGHT;
 
-    Thread thread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            while(true){
-                try {
-                    Thread.sleep(1000/speed);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                changeSnakeLocation();
-                paintSnake();
-
-            }
-        }
-    });
 
     Snake(int x, int y, int speed,Canvas canvas) {
-        this.canvas = canvas;
-
         snakeTail.push(new Point(x , y));
-
         this.speed = speed;
-        thread.start();
     }
 
     public int getSpeed() {
@@ -73,15 +53,10 @@ public class Snake {
 
         System.out.println(deltaX + " " + deltaY);
         snakeTail.push(new Point(snakeTail.peek().x + deltaX, snakeTail.peek().y + deltaY));
-        snakeTail.remove(0);
+        Point tail = snakeTail.remove(0); // to remove the tail in canvas
+
     }
 
-    private void paintSnake(){
-        for(int i = 0; i < snakeTail.size(); i++){
-            System.out.println(snakeTail.get(i).x + " " + snakeTail.get(i).y);
-            canvas.setPixelColor(snakeTail.get(i).x, snakeTail.get(i).y, Color.BLACK);
-        }
-    }
 }
 
 
