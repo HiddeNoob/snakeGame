@@ -11,6 +11,8 @@ public class MainPanel extends JFrame
     int rows = 50;
     int cols = 50;
     Canvas canvas = new Canvas(rows,cols);
+
+
     Snake snake = new Snake(20,20,10,5,canvas);
 
     MainPanel(){
