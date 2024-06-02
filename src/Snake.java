@@ -2,6 +2,8 @@ import java.awt.*;
 import java.util.Stack;
 
 public class Snake {
+
+
     enum Direction{
         LEFT, RIGHT, UP, DOWN
     }
@@ -22,6 +24,14 @@ public class Snake {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
 }
