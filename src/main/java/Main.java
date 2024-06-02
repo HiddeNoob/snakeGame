@@ -7,8 +7,3 @@ public class Main {
     }
 
 }
-
-interface a {
-    void m();
-    abstract  void  g();
-}

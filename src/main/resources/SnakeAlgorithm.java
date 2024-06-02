@@ -9,7 +9,6 @@ public class SnakeAlgorithm implements KeyListener {
 
 
     Snake snake;
-    ArrayList<Point> foods = new ArrayList<Point>();
 
     public SnakeAlgorithm(Snake snake){
         this.snake = snake;
@@ -88,14 +87,27 @@ public class SnakeAlgorithm implements KeyListener {
     }
 
     public boolean checkSnakeTouchSelf(){
+        Point snakeHead = snake.getSnakeTail().peek();
+
         for(Point snakePiece : snake.getSnakeTail()){
 
-            if(snakePiece.x == snake.getSnakeTail().peek().x && snakePiece.y == snake.getSnakeTail().peek().y && snake.getSnakeTail().peek() != snakePiece){
-                    return true;
-
+            if(snakePiece.x == snakeHead.x && snakePiece.y == snakeHead.y && snakeHead != snakePiece){
+                return true;
             }
+
         }
         return false;
+    }
+
+    public void eatFoodIfAvailable(){
+        for(Food food: Food.foods){
+            if(snake.getSnakeTail().peek().x == food.x && snake.getSnakeTail().peek().y == food.y){
+                food.delay = 1;
+                snake.eatFood(food.score);
+                Food.foods.remove(food);
+                break;
+            }
+        }
     }
 
 }
