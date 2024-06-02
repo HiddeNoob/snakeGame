@@ -6,6 +6,8 @@ import java.util.Stack;
 public class Snake {
 
 
+    private final Canvas canvas;
+
     enum Direction{
         LEFT, RIGHT, UP, DOWN
     }
@@ -30,9 +32,13 @@ public class Snake {
         }
     });
 
-    Snake(int x, int y, int speed) {
-        snakeTail.push(new Point(x, y));
+    Snake(int x, int y, int speed,Canvas canvas) {
+        this.canvas = canvas;
+
+        snakeTail.push(new Point(x , y));
+
         this.speed = speed;
+        thread.start();
     }
 
     public int getSpeed() {
@@ -52,15 +58,29 @@ public class Snake {
     }
 
     private void changeSnakeLocation(){
-        int deltaX = direction == Direction.RIGHT ? 1 : -1;
-        int deltaY = direction == Direction.UP ? 1 : -1;
+        int deltaX = 0;
+        int deltaY = 0;
+        if(direction == Direction.LEFT){
+            deltaX = -1;
+        }
+        else if(direction == Direction.RIGHT){
+            deltaX = 1;
+        }else if(direction == Direction.UP){
+            deltaY = -1;
+        }else if(direction == Direction.DOWN){
+            deltaY = 1;
+        }
 
-        snakeTail.pop();
+        System.out.println(deltaX + " " + deltaY);
         snakeTail.push(new Point(snakeTail.peek().x + deltaX, snakeTail.peek().y + deltaY));
+        snakeTail.remove(0);
     }
 
     private void paintSnake(){
-
+        for(int i = 0; i < snakeTail.size(); i++){
+            System.out.println(snakeTail.get(i).x + " " + snakeTail.get(i).y);
+            canvas.setPixelColor(snakeTail.get(i).x, snakeTail.get(i).y, Color.BLACK);
+        }
     }
 }
 
