@@ -35,4 +35,12 @@ public class Canvas extends JPanel{
     public void setPixelColor(int x, int y,Color c) {
         canvasMatrix[y][x].setBackground(c);
     }
+
+    public void resetCanvas(){
+        for(JPanel[] row : canvasMatrix){
+            for(JPanel x: row){
+                x.setBackground(Color.white);
+            }
+        }
+    }
 }

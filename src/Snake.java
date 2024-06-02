@@ -41,7 +41,7 @@ public class Snake {
         return snakeTail;
     }
 
-    private void changeSnakeLocation(){
+    public void updateSnakeLocation(){
         int deltaX = 0;
         int deltaY = 0;
         if(direction == Direction.LEFT){
@@ -60,6 +60,7 @@ public class Snake {
         Point tail = snakeTail.remove(0); // remove the tail and add to head
 
     }
+
 
 }
 
