@@ -1,3 +1,5 @@
+package main.resources;
+
 import javax.swing.*;
 import java.awt.*;
 
