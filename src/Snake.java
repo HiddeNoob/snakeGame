@@ -73,7 +73,9 @@ public class Snake {
 
         System.out.println(deltaX + " " + deltaY);
         snakeTail.push(new Point(snakeTail.peek().x + deltaX, snakeTail.peek().y + deltaY));
-        snakeTail.remove(0);
+        Point tail = snakeTail.remove(0); // to remove the tail in canvas
+        canvas.setPixelColor(tail.x, tail.y, Color.WHITE);
+
     }
 
     private void paintSnake(){
