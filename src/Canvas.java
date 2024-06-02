@@ -20,7 +20,7 @@ public class Canvas extends JPanel{
             for(int j = 0; j < cols; j++){
                 canvasMatrix[i][j] = new JPanel();
                 canvasMatrix[i][j].setBackground(Color.white);
-                canvasMatrix[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+                //canvasMatrix[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
 
                 add(canvasMatrix[i][j]);
             }

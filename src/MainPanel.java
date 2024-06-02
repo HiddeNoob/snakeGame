@@ -11,7 +11,7 @@ public class MainPanel extends JFrame
     int rows = 50;
     int cols = 50;
     Canvas canvas = new Canvas(rows,cols);
-    Snake snake = new Snake(20,20,10,canvas);
+    Snake snake = new Snake(20,20,10,5,canvas);
 
     MainPanel(){
         JPanel panel = new JPanel();
@@ -34,6 +34,7 @@ public class MainPanel extends JFrame
                         throw new RuntimeException(e);
                     }
                     snake.updateSnakeLocation();
+                    snake.updateLocationForOutOfBounds(cols,rows);
                     canvas.resetCanvas();
                     Painter.paint(snake,canvas);
 
