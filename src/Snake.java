@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Set;
 import java.util.Stack;
 
 public class Snake {
@@ -37,6 +38,10 @@ public class Snake {
         this.direction = direction;
     }
 
+    public Stack<Point> getSnakeTail() {
+        return snakeTail;
+    }
+
     private void changeSnakeLocation(){
         int deltaX = 0;
         int deltaY = 0;
@@ -53,7 +58,7 @@ public class Snake {
 
         System.out.println(deltaX + " " + deltaY);
         snakeTail.push(new Point(snakeTail.peek().x + deltaX, snakeTail.peek().y + deltaY));
-        Point tail = snakeTail.remove(0); // to remove the tail in canvas
+        Point tail = snakeTail.remove(0); // remove the tail and add to head
 
     }
 
