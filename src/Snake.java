@@ -7,6 +7,7 @@ public class Snake {
 
 
 
+
     enum Direction{
         LEFT, RIGHT, UP, DOWN
     }
@@ -16,8 +17,10 @@ public class Snake {
     private Direction direction = Direction.RIGHT;
 
 
-    Snake(int x, int y, int speed,Canvas canvas) {
-        snakeTail.push(new Point(x , y));
+    Snake(int x, int y, int speed,int startLength ,Canvas canvas) {
+        for(int i = 0; i < startLength; i++){
+            snakeTail.push(new Point(x - i , y));
+        }
         this.speed = speed;
     }
 
@@ -41,7 +44,7 @@ public class Snake {
         return snakeTail;
     }
 
-    private void changeSnakeLocation(){
+    public void updateSnakeLocation(){
         int deltaX = 0;
         int deltaY = 0;
         if(direction == Direction.LEFT){
@@ -57,9 +60,27 @@ public class Snake {
 
         System.out.println(deltaX + " " + deltaY);
         snakeTail.push(new Point(snakeTail.peek().x + deltaX, snakeTail.peek().y + deltaY));
-        Point tail = snakeTail.remove(0); // remove the tail and add to head
+        Point tail = snakeTail.removeFirst(); // remove the tail and add to head
 
     }
+
+    public void updateLocationForOutOfBounds(int canvasXLength, int canvasYLength) {
+
+        for(Point snakePiece : snakeTail){
+            if(snakePiece.x >= canvasXLength){
+                snakePiece.x = 0;
+            }else if(snakePiece.x < 0){
+                snakePiece.x = canvasXLength - 1;
+            }
+            else if(snakePiece.y >= canvasYLength){
+                snakePiece.y = 0;
+            }else if(snakePiece.y < 0){
+                snakePiece.y = canvasYLength - 1;
+            }
+        }
+
+    }
+
 
 }
 
@@ -77,16 +98,24 @@ class SnakeAlgorithm implements KeyListener {
     public void keyTyped(KeyEvent e) {
         switch (e.getKeyChar()){
             case 's':
-                snake.setDirection(Snake.Direction.DOWN);
+                if (snake.getDirection() != Snake.Direction.UP) {
+                    snake.setDirection(Snake.Direction.DOWN);
+                }
                 break;
             case 'd':
-                snake.setDirection(Snake.Direction.RIGHT);
+                if (snake.getDirection() != Snake.Direction.LEFT) {
+                    snake.setDirection(Snake.Direction.RIGHT);
+                }
                 break;
             case 'w':
-                snake.setDirection(Snake.Direction.UP);
+                if (snake.getDirection() != Snake.Direction.DOWN) {
+                    snake.setDirection(Snake.Direction.UP);
+                }
                 break;
             case 'a':
-                snake.setDirection(Snake.Direction.LEFT);
+                if (snake.getDirection() != Snake.Direction.RIGHT) {
+                    snake.setDirection(Snake.Direction.LEFT);
+                }
         }
 
     }
