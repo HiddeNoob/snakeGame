@@ -3,7 +3,7 @@ package main.resources;
 import java.util.ArrayList;
 
 public class Food {
-
+    public boolean isEated = false;
     public int x;
     public int y;
     public int delay; // delay for disappear

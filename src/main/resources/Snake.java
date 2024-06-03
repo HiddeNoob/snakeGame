@@ -19,7 +19,7 @@ public class Snake {
     private Direction direction = Direction.RIGHT;
 
 
-    public Snake(int x, int y, int speed, int startLength, Canvas canvas) {
+    public Snake(int x, int y, int speed, int startLength) {
         for(int i = 0; i < startLength; i++){
             snakeTail.push(new Point(x + i , y));
         }
@@ -46,10 +46,13 @@ public class Snake {
         return snakeTail;
     }
 
-    public void eatFood(int foodSize){
-        for(int i = 0; i < foodSize; i++){
+    public void eatFood(Food food){
+        food.isEated = true;
+        for(int i = 0; i < food.score; i++){
             snakeTail.addFirst(new Point(snakeTail.firstElement().x , snakeTail.firstElement().y));
         }
+
+
     }
 
 

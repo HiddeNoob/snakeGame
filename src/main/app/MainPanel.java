@@ -15,7 +15,7 @@ public class MainPanel extends JFrame
     int cols = 20;
     Canvas canvas = new Canvas(rows,cols);
 
-    Snake snake = new Snake(rows/2,cols/2,10,2,canvas);
+    Snake snake = new Snake(rows/2,cols/2,10,2);
     SnakeAlgorithm snakeAlgorithm = new SnakeAlgorithm(snake);
 
     MainPanel(){
@@ -24,7 +24,7 @@ public class MainPanel extends JFrame
         add(canvas);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800,800);
-
+        setLocationRelativeTo(null);
         addKeyListener(new SnakeAlgorithm(snake));
 
         setVisible(true);
@@ -62,7 +62,7 @@ public class MainPanel extends JFrame
                                     @Override
                                     public void run() {
 
-                                        int counter = createdFood.delay;
+                                        int constantCounter = createdFood.delay;
                                         while (true){
 
                                             try {
@@ -71,12 +71,16 @@ public class MainPanel extends JFrame
                                                 throw new RuntimeException(e);
                                             }
 
-                                            if(counter <= 1){
+                                            if(createdFood.delay-- <= 1){
                                                 Food.deleteFood(createdFood);
                                                 canvas.setPixelColor(createdFood.x, createdFood.y, Color.WHITE);
                                                 break;
                                             }
-                                            Color color = new Color((float) 1,(float) 0.5 + ((float) 0.5 - (float) counter-- / createdFood.delay / 2), (float) 1 - ((float) (counter--) /createdFood.delay));
+                                            if(createdFood.isEated){
+                                                canvas.setPixelColor(createdFood.x, createdFood.y, Color.BLACK);
+                                                break;
+                                            }
+                                            Color color = new Color((float) 1,  1- (float) createdFood.delay / constantCounter,  1 - (float) createdFood.delay / constantCounter);
                                             canvas.setPixelColor(createdFood.x, createdFood.y,color);
                                         }
                                     }

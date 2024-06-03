@@ -102,8 +102,7 @@ public class SnakeAlgorithm implements KeyListener {
     public void eatFoodIfAvailable(){
         for(Food food: Food.foods){
             if(snake.getSnakeTail().peek().x == food.x && snake.getSnakeTail().peek().y == food.y){
-                food.delay = 1;
-                snake.eatFood(food.score);
+                snake.eatFood(food);
                 Food.foods.remove(food);
                 break;
             }
