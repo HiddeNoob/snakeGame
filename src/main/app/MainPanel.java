@@ -103,9 +103,9 @@ public class MainPanel extends JFrame
                     Point snakeTail = snakeAlgorithm.updateSnakeLocation();
                     canvas.setPixelColor(snakeTail.x, snakeTail.y, Color.WHITE);
 
-                    snakeAlgorithm.eatFoodIfAvailable();
                     snakeAlgorithm.updateLocationForOutOfBounds(cols,rows);
-                    
+                    snakeAlgorithm.eatFoodIfAvailable();
+
                     if(snakeAlgorithm.checkSnakeTouchSelf())
                         System.exit(1);
 
