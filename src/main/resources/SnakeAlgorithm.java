@@ -16,26 +16,24 @@ public class SnakeAlgorithm implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-        switch (e.getKeyChar()){
-            case 's':
-                if (snake.getDirection() != Snake.Direction.UP) {
-                    snake.setDirection(Snake.Direction.DOWN);
-                }
-                break;
-            case 'd':
-                if (snake.getDirection() != Snake.Direction.LEFT) {
-                    snake.setDirection(Snake.Direction.RIGHT);
-                }
-                break;
-            case 'w':
-                if (snake.getDirection() != Snake.Direction.DOWN) {
-                    snake.setDirection(Snake.Direction.UP);
-                }
-                break;
-            case 'a':
-                if (snake.getDirection() != Snake.Direction.RIGHT) {
-                    snake.setDirection(Snake.Direction.LEFT);
-                }
+        System.out.println(e.getKeyCode());
+
+        if (e.getKeyChar() == 's' || e.getKeyCode() == 40) { // 40 means down arrow, others are same for this
+            if (snake.getDirection() != Snake.Direction.UP) {
+                snake.setDirection(Snake.Direction.DOWN);
+            }
+        } else if (e.getKeyChar() == 'd' || e.getKeyCode() == 39) {
+            if (snake.getDirection() != Snake.Direction.LEFT) {
+                snake.setDirection(Snake.Direction.RIGHT);
+            }
+        } else if (e.getKeyChar() == 'w' || e.getKeyCode() == 38) {
+            if (snake.getDirection() != Snake.Direction.DOWN) {
+                snake.setDirection(Snake.Direction.UP);
+            }
+        } else if (e.getKeyChar() == 'a' || e.getKeyCode() == 37) {
+            if (snake.getDirection() != Snake.Direction.RIGHT) {
+                snake.setDirection(Snake.Direction.LEFT);
+            }
         }
 
     }

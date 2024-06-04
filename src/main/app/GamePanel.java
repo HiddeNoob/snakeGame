@@ -8,24 +8,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.Duration;
 
-public class MainPanel extends JFrame
+public class GamePanel extends JPanel
 {
 
-    int rows = 20;
-    int cols = 20;
-    Canvas canvas = new Canvas(rows,cols);
+    boolean gameEnded = false;
+    Snake snake;
+    SnakeAlgorithm snakeAlgorithm;
 
-    Snake snake = new Snake(rows/2,cols/2,10,2);
-    SnakeAlgorithm snakeAlgorithm = new SnakeAlgorithm(snake);
+    GamePanel(RunGame mainFrame, Canvas canvas){
 
-    MainPanel(){
-        JPanel panel = new JPanel();
 
-        add(canvas);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800,800);
-        setLocationRelativeTo(null);
-        addKeyListener(new SnakeAlgorithm(snake));
+        snake = new Snake(canvas.getRows()/2, canvas.getCols() /2,10,6);
+        snakeAlgorithm = new SnakeAlgorithm(snake);
+        setLayout(new BorderLayout());
+        add(canvas,BorderLayout.CENTER);
+
+        mainFrame.addKeyListener(snakeAlgorithm);
+        this.addKeyListener(snakeAlgorithm);
 
         setVisible(true);
 
@@ -45,7 +44,7 @@ public class MainPanel extends JFrame
                     public void run() {
                         int counter = 0;
 
-                        while (true){
+                        while (!gameEnded){
                             try {
                                 Thread.sleep(Duration.ofMillis(1));
                                 counter++;
@@ -56,7 +55,7 @@ public class MainPanel extends JFrame
                                 counter = 0;
                                 int time = (int) (Math.random()*9000) + 1000; // min 1 sec max 9 sec
                                 int score = 3000/time + 1;
-                                Food createdFood = new Food((int) (Math.random() * cols), (int) (Math.random() * rows),time , score);
+                                Food createdFood = new Food((int) (Math.random() * canvas.getCols()), (int) (Math.random() * canvas.getRows()),time , score);
                                 System.out.println(createdFood);
                                 new  Thread(new Runnable() {
                                     @Override
@@ -90,10 +89,11 @@ public class MainPanel extends JFrame
 
                         }
 
+
                     }
                 }).start();
 
-                while (true){
+                while (!gameEnded){
                     try {
                         Thread.sleep( 1000 / snake.getSpeed());
                     } catch (InterruptedException e) {
@@ -103,12 +103,14 @@ public class MainPanel extends JFrame
                     Point snakeTail = snakeAlgorithm.updateSnakeLocation();
                     canvas.setPixelColor(snakeTail.x, snakeTail.y, Color.WHITE);
 
-                    snakeAlgorithm.updateLocationForOutOfBounds(cols,rows);
+                    snakeAlgorithm.updateLocationForOutOfBounds(canvas.getCols(), canvas.getRows());
                     snakeAlgorithm.eatFoodIfAvailable();
 
-                    if(snakeAlgorithm.checkSnakeTouchSelf())
-                        System.exit(1);
 
+                    if(snakeAlgorithm.checkSnakeTouchSelf()){
+                        gameEnded = true;
+                        mainFrame.showGameEndPanel(snake.getSnakeTail().size());
+                    }
 
 
                     Painter.paint(snake,canvas);
@@ -119,8 +121,11 @@ public class MainPanel extends JFrame
 
 
                 }
+
+
             }
         }).start();
+
 
 
 

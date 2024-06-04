@@ -11,7 +11,7 @@ and run these commands
     cd .\bin\
  *and run the app*
 
-    java main.app.Main
+    java main.app.GameMenu
 
 ## How to play
 

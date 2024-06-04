@@ -10,11 +10,14 @@ public class Canvas extends JPanel{
 
     private final JPanel[][] canvasMatrix;
 
+    private final int rows;
+    private final int cols;
 
 
 
     public Canvas(int rows, int cols){
-
+        this.rows = rows;
+        this.cols = cols;
 
         canvasMatrix = new JPanel[rows][cols];
         setLayout(new GridLayout(rows,cols));
@@ -44,5 +47,13 @@ public class Canvas extends JPanel{
                 x.setBackground(Color.white);
             }
         }
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
     }
 }
