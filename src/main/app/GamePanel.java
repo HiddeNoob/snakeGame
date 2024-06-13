@@ -14,7 +14,6 @@ public class GamePanel extends JPanel
     boolean gameEnded = false;
     Snake snake;
     SnakeAlgorithm snakeAlgorithm;
-
     GamePanel(RunGame mainFrame, Canvas canvas){
 
 
@@ -24,11 +23,6 @@ public class GamePanel extends JPanel
         add(canvas,BorderLayout.CENTER);
 
         mainFrame.addKeyListener(snakeAlgorithm);
-        this.addKeyListener(snakeAlgorithm);
-
-        setVisible(true);
-
-
 
 
         new Thread(new Runnable() {
@@ -56,7 +50,6 @@ public class GamePanel extends JPanel
                                 int time = (int) (Math.random()*9000) + 1000; // min 1 sec max 9 sec
                                 int score = 3000/time + 1;
                                 Food createdFood = new Food((int) (Math.random() * canvas.getCols()), (int) (Math.random() * canvas.getRows()),time , score);
-                                System.out.println(createdFood);
                                 new  Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -105,38 +98,28 @@ public class GamePanel extends JPanel
 
                     snakeAlgorithm.updateLocationForOutOfBounds(canvas.getCols(), canvas.getRows());
                     snakeAlgorithm.eatFoodIfAvailable();
+                    Painter.paint(snake,canvas);
 
 
                     if(snakeAlgorithm.checkSnakeTouchSelf()){
                         gameEnded = true;
+                        mainFrame.removeKeyListener(snakeAlgorithm);
                         mainFrame.showGameEndPanel(snake.getSnakeTail().size());
+
                     }
 
-
-                    Painter.paint(snake,canvas);
-
-
-
-
-
-
                 }
+
 
 
             }
         }).start();
 
-
-
+        setVisible(true);
 
     }
 
+
+
 }
-
-/*
-
-
-
- */
-
 
