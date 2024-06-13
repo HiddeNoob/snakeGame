@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 
-public class GameMenu extends JPanel implements KeyListener {
+public class GameMenu extends JPanel{
 
     RunGame mainFrame;
     byte selectedButton = 0;
@@ -20,36 +20,39 @@ public class GameMenu extends JPanel implements KeyListener {
     GameMenu(RunGame mainFrame){
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout());
-        mainFrame.addKeyListener(this);
         setSize(mainFrame.getWidth() / 2, mainFrame.getHeight() / 2);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
         for(int i = 0; i < buttons.length; i++){
             buttons[i] = new JPanel();
-            buttonPanel.add(buttons[i]);
+            buttons[i].setLayout(new BorderLayout());
+            buttonPanel.add(buttons[i], BorderLayout.CENTER);
+        }
+        JLabel[] menuTexts = new JLabel[]{
+            new JLabel("START", JLabel.CENTER), new JLabel("OPTIONS", JLabel.CENTER), new JLabel("EXIT", JLabel.CENTER),
+
+
+        };
+        for(int i = 0 ; i < menuTexts.length; i++){
+            menuTexts[i].setFont(mainFrame.textFonts);
+            buttons[i].add(menuTexts[i]);
         }
 
-        buttons[0].add(new JLabel("Start"));
-        buttons[1].add(new JLabel("Options"));
-        buttons[2].add(new JLabel("Exit"));
+        selectButton(buttons[0]);
 
         add(buttonPanel, BorderLayout.CENTER);
     }
 
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println(selectedButton);
+    public void mainMenuKeyFunction(KeyEvent e){
         if(e.getKeyChar() == KeyEvent.VK_ENTER){
-            mainFrame.showGamePanel();
+            if(selectedButton == 0){
+                mainFrame.showGamePanel();
+            }else if(selectedButton == 1){
+                mainFrame.showOptionPanel();
+            }else if(selectedButton == 2){
+                mainFrame.exitGame();
+            }
         }
         else if(e.getKeyCode() == 40){ // down arrow
             selectedButton++;
@@ -66,14 +69,8 @@ public class GameMenu extends JPanel implements KeyListener {
 
         resetButtonBackgrounds();
         selectButton(buttons[selectedButton]);
-
-
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 
     private  void resetButtonBackgrounds(){
         for(JPanel panel : buttons){

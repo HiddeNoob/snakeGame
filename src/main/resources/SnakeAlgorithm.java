@@ -23,7 +23,6 @@ public class SnakeAlgorithm implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode());
 
         if (e.getKeyChar() == 's' || e.getKeyCode() == 40) { // 40 means down arrow, others are same for this
             if (snake.getDirection() != Snake.Direction.UP) {

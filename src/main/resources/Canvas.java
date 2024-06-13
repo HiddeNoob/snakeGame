@@ -21,10 +21,12 @@ public class Canvas extends JPanel{
 
         canvasMatrix = new JPanel[rows][cols];
         setLayout(new GridLayout(rows,cols));
+
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < cols; j++){
                 canvasMatrix[i][j] = new JPanel();
                 canvasMatrix[i][j].setBackground(Color.white);
+
                 //canvasMatrix[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
 
                 add(canvasMatrix[i][j]);
